@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Peeper</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+    <script style="https://cdnjs.com/libraries/bulma"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='myfavicon.ico') }}">
+</head>
+<style>
+
+    a
+    {
+        color: #2E2E2E
+    }
+
+</style>
+<body>
+
+<nav class="navbar navbar-dark bg-dark" style="height: 10vh;">
+  <a class="navbar-brand" href="#">Peeper</a>
+</nav>
+
+<div class="container-fluid" style="height: 90vh">
+
+    <div class="row">
+
+        <div class="col-3 bg-dark" style="height: 90vh;">
+
+            <div class="list-group text-dark">
+
+                <a href="/" class="list-group-item">Home</a>
+                <a href="/" class="list-group-item">Day</a>
+                <a href="/" class="list-group-item">Month</a>
+                <a href="/" class="list-group-item">3 Month</a>
+                <a href="/" class="list-group-item">6 Month</a>
+                <a href="/" class="list-group-item">12 Month</a>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="col-8" style="height: 90vh; overflow-y: scroll;">
+
+            <h3>Device Overview:</h3>
+            <br>
+            <p>Number of connections: {{ numconnections }}</p>
+            <p>Number of unique IP addresses: {{ numunique }}</p>
+
+            <br>
+
+            <canvas id="myChart"></canvas>
+
+            <br>
+
+            <p>IP addresses by frequency (Most visited to least visited):</p>
+            <ul class="list-group">
+                {{ iplist | safe }}
+            </ul>
+
+        </div>
+
+        <div class="col-1"></div>
+
+
+    </div>
+
+</div>
+
+<script>
+
+
+var ctx = document.getElementById('myChart').getContext('2d');
+
+var myPieChart = new Chart(ctx,{
+    type: 'pie',
+    data: {{ chartdata | safe }},
+    backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+    options: {}
+});
+
+</script>
+
+</body>
+</html>
