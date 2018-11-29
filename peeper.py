@@ -23,7 +23,7 @@ def hello_world():
 
     connectionslist = []
 
-    with open("/Users/Hunter/PycharmProjects/peeper/temp.txt", "r") as connections:
+    with open("/Users/Hunter/PycharmProjects/peeper/tempcap.txt", "r") as connections:
         lines = connections.readlines()
 
         for item in lines:
