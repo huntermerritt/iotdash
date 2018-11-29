@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+import socket
 
 app = Flask(__name__)
 
@@ -23,7 +24,7 @@ def hello_world():
 
     connectionslist = []
 
-    with open("/Users/Hunter/PycharmProjects/peeper/tempcap.txt", "r") as connections:
+    with open("/Users/haydensouthworth/Documents/TCU/Senior Year/Python/iotdash/tempcap.txt", "r") as connections:
         lines = connections.readlines()
 
         for item in lines:
@@ -33,9 +34,17 @@ def hello_world():
                 date = linearr[0]
                 host = linearr[2]
                 reciever = linearr[4]
+                # Reverse DNS Lookup
+                desti = reciever.split(".")
+                destin = desti[0] + "." + desti[1] + "." + desti[2] + "." + desti[3]
+                dest = socket.gethostbyaddr(destin)
+                dnsName = dest[0]
 
-                connectionslist.append(reciever)
-                iplist += "<li class='list-group-item'>Sent from: " + host + ", Sent to: " + reciever + ", on date: " + date + "</li>"
+                fullname = dnsName.split(".")
+                name = fullname[-2] + "." + fullname[-1]
+
+                connectionslist.append(name)
+                iplist += "<li class='list-group-item'>Sent from: " + host + ", Sent to: " + name + ", on date: " + date + "</li>"
             except:
                 print(item)
 
