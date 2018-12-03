@@ -24,7 +24,8 @@ def hello_world():
 
     connectionslist = []
 
-    with open("/Users/haydensouthworth/Documents/TCU/Senior Year/Python/iotdash/tempcap.txt", "r") as connections:
+    #with open("/Users/haydensouthworth/Documents/TCU/Senior Year/Python/iotdash/tempcap.txt", "r") as connections:
+    with open("/Users/Hunter/PycharmProjects/peeper/results.txt", "r") as connections:
         lines = connections.readlines()
 
         for item in lines:
