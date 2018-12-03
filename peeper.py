@@ -24,8 +24,8 @@ def hello_world():
 
     connectionslist = []
 
-    #with open("/Users/haydensouthworth/Documents/TCU/Senior Year/Python/iotdash/tempcap.txt", "r") as connections:
-    with open("/Users/Hunter/PycharmProjects/peeper/results.txt", "r") as connections:
+    with open("/Users/haydensouthworth/Documents/TCU/Senior Year/Python/iotdash/tempcap.txt", "r") as connections:
+    #with open("/Users/Hunter/PycharmProjects/peeper/results.txt", "r") as connections:
         lines = connections.readlines()
 
         for item in lines:
@@ -38,12 +38,16 @@ def hello_world():
                 # Reverse DNS Lookup
                 desti = reciever.split(".")
                 destin = desti[0] + "." + desti[1] + "." + desti[2] + "." + desti[3]
-                dest = socket.gethostbyaddr(destin)
-                dnsName = dest[0]
+                try:
+                    dest = socket.gethostbyaddr(destin)
+                    dnsName = dest[0]
+                    fullname = dnsName.split(".")
+                    name = fullname[-2] + "." + fullname[-1]
 
-                fullname = dnsName.split(".")
-                name = fullname[-2] + "." + fullname[-1]
-
+                    if name == '1e100.net':
+                        name = 'google.com'
+                except:
+                    name = destin
                 connectionslist.append(name)
                 iplist += "<li class='list-group-item'>Sent from: " + host + ", Sent to: " + name + ", on date: " + date + "</li>"
             except:
